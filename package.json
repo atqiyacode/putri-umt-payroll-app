@@ -26,6 +26,8 @@
     },
     "dependencies": {
         "@vue/compiler-sfc": "^3.2.37",
-        "postcss-import": "^14.1.0"
+        "postcss-import": "^14.1.0",
+        "primeicons": "^5.0.0",
+        "primevue": "^3.15.0"
     }
 }

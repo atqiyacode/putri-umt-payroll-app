@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
+use Spatie\Permission\Models\Role;
+
 
 class RegisteredUserController extends Controller
 {
@@ -40,11 +42,16 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $employeeRole = Role::where('name', 'employee')->first();
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'email_verified_at' => env('APP_DEBUG') ? now() : null,
         ]);
+
+        $user->assignRole($employeeRole);
 
         event(new Registered($user));
 
