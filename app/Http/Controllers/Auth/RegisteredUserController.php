@@ -48,7 +48,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'email_verified_at' => env('APP_DEBUG') ? now() : null,
+            // 'email_verified_at' => env('APP_DEBUG') ? now() : null,
         ]);
 
         $user->assignRole($employeeRole);
