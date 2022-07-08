@@ -4,7 +4,6 @@ import BreezeCheckbox from "@/Components/Checkbox.vue";
 import BreezeGuestLayout from "@/Layouts/Guest.vue";
 import BreezeInput from "@/Components/Input.vue";
 import BreezeLabel from "@/Components/Label.vue";
-import BreezeValidationErrors from "@/Components/ValidationErrors.vue";
 import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
 export default {
   components: {
@@ -13,7 +12,6 @@ export default {
     BreezeGuestLayout,
     BreezeInput,
     BreezeLabel,
-    BreezeValidationErrors,
     Head,
     Link,
   },
@@ -57,25 +55,27 @@ export default {
 };
 </script>
 
-
 <template>
   <BreezeGuestLayout>
     <Head title="Log in" />
-    <div class="card">
+    <div class="card shadow-lg">
       <div class="card-body p-4">
         <div class="text-center w-50 m-auto">
           <div class="auth-logo">
-            <a href="index.html" class="logo logo-dark text-center">
+            <Link :href="route('dashboard')" class="logo logo-dark text-center">
               <span class="logo-lg">
                 <img src="assets/images/logo-dark.png" alt="" height="22" />
               </span>
-            </a>
+            </Link>
 
-            <a href="index.html" class="logo logo-light text-center">
+            <Link
+              :href="route('dashboard')"
+              class="logo logo-light text-center"
+            >
               <span class="logo-lg">
                 <img src="assets/images/logo-light.png" alt="" height="22" />
               </span>
-            </a>
+            </Link>
           </div>
           <p class="text-muted mb-4 mt-3">
             Enter your email address and password to access.

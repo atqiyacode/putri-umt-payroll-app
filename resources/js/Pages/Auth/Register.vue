@@ -59,17 +59,20 @@ export default {
       <div class="card-body p-4">
         <div class="text-center w-50 m-auto">
           <div class="auth-logo">
-            <a href="index.html" class="logo logo-dark text-center">
+            <Link :href="route('dashboard')" class="logo logo-dark text-center">
               <span class="logo-lg">
                 <img src="assets/images/logo-dark.png" alt="" height="22" />
               </span>
-            </a>
+            </Link>
 
-            <a href="index.html" class="logo logo-light text-center">
+            <Link
+              :href="route('dashboard')"
+              class="logo logo-light text-center"
+            >
               <span class="logo-lg">
                 <img src="assets/images/logo-light.png" alt="" height="22" />
               </span>
-            </a>
+            </Link>
           </div>
           <p class="text-muted mb-4 mt-3">
             Enter your email address and password to access admin panel.
@@ -179,9 +182,9 @@ export default {
       <div class="col-12 text-center">
         <p class="text-muted">
           Already have account?
-          <Link :href="route('login')" class="text-primary fw-medium ms-1"
-            >Sign In</Link
-          >
+          <Link :href="route('login')" class="text-primary fw-medium ms-1">
+            Sign In
+          </Link>
         </p>
       </div>
     </div>

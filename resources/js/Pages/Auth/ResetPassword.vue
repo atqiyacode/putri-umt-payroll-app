@@ -32,17 +32,20 @@ const submit = () => {
       <div class="card-body p-4">
         <div class="text-center w-75 m-auto">
           <div class="auth-logo">
-            <a href="index.html" class="logo logo-dark text-center">
+            <Link :href="route('dashboard')" class="logo logo-dark text-center">
               <span class="logo-lg">
                 <img src="assets/images/logo-dark.png" alt="" height="22" />
               </span>
-            </a>
+            </Link>
 
-            <a href="index.html" class="logo logo-light text-center">
+            <Link
+              :href="route('dashboard')"
+              class="logo logo-light text-center"
+            >
               <span class="logo-lg">
                 <img src="assets/images/logo-light.png" alt="" height="22" />
               </span>
-            </a>
+            </Link>
           </div>
 
           <template v-if="status">
@@ -192,7 +195,11 @@ const submit = () => {
           </div>
 
           <div class="d-grid text-center">
-            <button class="btn btn-primary" type="submit">
+            <button
+              class="btn btn-primary"
+              type="submit"
+              :disabled="form.processing"
+            >
               <span v-if="form.processing">Processing...</span>
               <span v-else>Reset Password</span>
             </button>

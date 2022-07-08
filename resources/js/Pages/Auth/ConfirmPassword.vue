@@ -4,7 +4,7 @@ import BreezeGuestLayout from "@/Layouts/Guest.vue";
 import BreezeInput from "@/Components/Input.vue";
 import BreezeLabel from "@/Components/Label.vue";
 import BreezeValidationErrors from "@/Components/ValidationErrors.vue";
-import { Head, useForm } from "@inertiajs/inertia-vue3";
+import { Head, useForm, Link } from "@inertiajs/inertia-vue3";
 
 const form = useForm({
   password: "",
@@ -25,13 +25,13 @@ const submit = () => {
       <div class="card-body p-4">
         <div class="text-center w-50 m-auto">
           <div class="auth-logo">
-            <a href="index.html" class="logo logo-dark text-center">
+            <Link :href="route('dashboard')" class="logo logo-dark text-center">
               <span class="logo-lg">
                 <img src="assets/images/logo-dark.png" alt="" height="22" />
               </span>
-            </a>
+            </Link>
 
-            <a href="index.html" class="logo logo-light text-center">
+            <a :href="route('dashboard')" class="logo logo-light text-center">
               <span class="logo-lg">
                 <img src="assets/images/logo-light.png" alt="" height="22" />
               </span>
@@ -54,7 +54,6 @@ const submit = () => {
                 placeholder="Enter your password"
                 v-model="form.password"
               />
-
               <div
                 class="input-group-text"
                 @click="togglePassword"
