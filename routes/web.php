@@ -18,12 +18,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
     // superadmin route
-    Route::prefix('admin')->group(function () {
-        // superadmin
-        Route::resource('role', RoleController::class)->middleware(['role:superadmin']);
-        Route::resource('permission', PermissionController::class)->middleware(['role:superadmin']);
-        Route::resource('user', UserController::class)->middleware(['role:superadmin|admin']);
-    });
+    // superadmin
+    Route::resource('role', RoleController::class)->middleware(['role:superadmin']);
+    Route::resource('permission', PermissionController::class)->middleware(['role:superadmin']);
+    Route::resource('user', UserController::class)->middleware(['role:superadmin|admin']);
+    // superadmin
 });
 
 require __DIR__ . '/auth.php';

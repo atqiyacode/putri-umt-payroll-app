@@ -4,8 +4,10 @@
       <ul class="list-unstyled topnav-menu float-end mb-0">
         <!-- search -->
         <top-bar-search></top-bar-search>
+
         <!-- fullscreen -->
         <top-bar-full-screen></top-bar-full-screen>
+
         <!-- app -->
         <top-bar-app></top-bar-app>
 

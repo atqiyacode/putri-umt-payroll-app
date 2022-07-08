@@ -19,6 +19,9 @@ import ColumnGroup from 'primevue/columngroup'; //optional for column grouping
 import Row from 'primevue/row';
 import Tooltip from 'primevue/tooltip';
 
+// local component
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+
 const appName = window.document.getElementsByTagName('title')[0].innerText || 'Laravel';
 
 createInertiaApp({
@@ -40,6 +43,8 @@ createInertiaApp({
         appVue.component('p-column', Column);
         appVue.component('p-column-group', ColumnGroup);
         appVue.component('p-row', Row);
+
+        appVue.component('a-breadcrumb', Breadcrumb);
 
         appVue.use(ZiggyVue, Ziggy)
         appVue.mount(el)

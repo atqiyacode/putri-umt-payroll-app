@@ -286,10 +286,11 @@ export default {
       dataLayout: JSON.parse(localStorage.getItem("dataLayout")) || null,
     };
   },
-  created() {
+  async mounted() {
     if (!localStorage.getItem("dataLayout")) {
       this.onResetDefault();
     }
+    // await this.setDataLayout();
   },
   methods: {
     onResetDefault() {
@@ -407,7 +408,7 @@ export default {
 
     // run updated theme
     updateThemeActive(color) {
-      //   document.body.style.display = "none";
+      document.body.style.display = "none";
       var defaultBSStyle = document.getElementById("bs-stylesheet");
       var defaultAppStyle = document.getElementById("app-stylesheet");
       setTimeout(() => {
@@ -430,7 +431,7 @@ export default {
             location.origin + "/assets/css/app-dark.min.css"
           );
         }
-        // document.body.style.display = "";
+        document.body.style.display = "";
       }, 250);
     },
   },

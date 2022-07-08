@@ -24,34 +24,42 @@ export default {
   <Head title="Permission" />
 
   <BreezeAuthenticatedLayout>
-    <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Permission Data
-      </h2>
-    </template>
+    <div class="row">
+      <div class="col-12">
+        <a-breadcrumb>
+          <template #header> Permission </template>
+          <template #content>
+            <ol class="breadcrumb m-0">
+              <li class="breadcrumb-item">
+                <a href="javascript: void(0);">Payroll App</a>
+              </li>
+              <li class="breadcrumb-item active">Permission</li>
+            </ol>
+          </template>
+        </a-breadcrumb>
+      </div>
+    </div>
 
-    <div class="py-3">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-          <div class="p-6 bg-white border-b border-gray-200">
-            <p-datatable :value="data.data" responsiveLayout="scroll">
-              <p-column header="ID">
-                <template #body="{ data }">
-                  {{ data.id }}
-                </template>
-              </p-column>
-              <p-column header="Name">
-                <template #body="{ data }">
-                  {{ data.name }}
-                </template>
-              </p-column>
-              <p-column header="Guard">
-                <template #body="{ data }">
-                  {{ data.guard_name }}
-                </template>
-              </p-column>
-            </p-datatable>
-          </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <p-datatable :value="data.data" responsiveLayout="scroll">
+            <p-column header="ID">
+              <template #body="{ data }">
+                {{ data.id }}
+              </template>
+            </p-column>
+            <p-column header="Name">
+              <template #body="{ data }">
+                {{ data.name }}
+              </template>
+            </p-column>
+            <p-column header="Guard">
+              <template #body="{ data }">
+                {{ data.guard_name }}
+              </template>
+            </p-column>
+          </p-datatable>
         </div>
       </div>
     </div>

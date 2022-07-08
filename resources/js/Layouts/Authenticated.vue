@@ -4,7 +4,6 @@ import RightBarMenu from "@/Components/RightBarMenu.vue";
 import TopBar from "@/Components/TopBar.vue";
 import LeftSideBar from "@/Components/LeftSideBar.vue";
 import Footer from "@/Components/Footer.vue";
-import Breadcrumb from "@/Components/Breadcrumb.vue";
 
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import Dropdown from "@/Components/Dropdown.vue";
@@ -35,11 +34,8 @@ const showingNavigationDropdown = ref(false);
         <!-- Start Content-->
         <div class="container-fluid">
           <!-- start page title -->
-          <div class="row">
-            <div class="col-12">
-              <Breadcrumb></Breadcrumb>
-            </div>
-          </div>
+
+          <slot />
           <!-- end page title -->
         </div>
         <!-- container -->

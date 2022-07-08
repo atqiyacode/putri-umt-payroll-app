@@ -7,20 +7,24 @@ import { Head } from "@inertiajs/inertia-vue3";
   <Head title="Dashboard" />
 
   <BreezeAuthenticatedLayout>
-    <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Dashboard
-      </h2>
-    </template>
-
-    <div class="py-3">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-          <div class="p-6 bg-white border-b border-gray-200">
-            Payroll App - SKripsi UMT 2022
-          </div>
-        </div>
+    <div class="row">
+      <div class="col-12">
+        <a-breadcrumb>
+          <template #header> Dashboard </template>
+          <template #content>
+            <ol class="breadcrumb m-0">
+              <li class="breadcrumb-item">
+                <a href="javascript: void(0);">Payroll App</a>
+              </li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </template>
+        </a-breadcrumb>
       </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">Payroll App - SKripsi UMT 2022</div>
     </div>
   </BreezeAuthenticatedLayout>
 </template>
