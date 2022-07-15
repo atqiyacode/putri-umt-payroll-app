@@ -46,11 +46,16 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     protected $appends = [
-        'role_name'
+        'role_name', 'status'
     ];
 
     public function getRoleNameAttribute()
     {
         return $this->getRoleNames()->first();
+    }
+
+    public function getStatusAttribute()
+    {
+        return (bool) $this->email_verified_at;
     }
 }

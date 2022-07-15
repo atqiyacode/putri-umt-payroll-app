@@ -14,8 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::paginate(10);
-        return inertia('superadmin/User', compact(['data']));
+        return inertia('superadmin/User');
     }
 
     /**

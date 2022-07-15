@@ -263,6 +263,7 @@ export default {
       this.formlabel = "Create New Data";
       this.submitLabel = "Save";
       this.showForm = true;
+      this.resetForm;
     },
     editData(item) {
       this.formlabel = "Update Data";
@@ -279,6 +280,11 @@ export default {
       this.formlabel = "";
       this.submitLabel = "";
       this.showForm = false;
+      this.resetForm;
+      this.loadPage(this.page, this.perPage, this.keyword);
+    },
+
+    resetForm() {
       this.errors = {
         name: null,
         guard_name: null,
@@ -288,7 +294,6 @@ export default {
         name: "",
         guard_name: "",
       };
-      this.loadPage(this.page, this.perPage, this.keyword);
     },
 
     saveData() {

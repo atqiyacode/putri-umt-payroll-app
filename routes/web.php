@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\ApiPermissionController;
 use App\Http\Controllers\API\ApiRoleController;
+use App\Http\Controllers\API\ApiUserController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -29,6 +30,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // api
     Route::resource('api-role', ApiRoleController::class)->middleware(['role:superadmin'])->only(['index', 'store', 'update', 'destroy']);
     Route::resource('api-permission', ApiPermissionController::class)->middleware(['role:superadmin'])->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('api-user', ApiUserController::class)->middleware(['role:superadmin'])->only(['index', 'store', 'update', 'destroy']);
+
     // superadmin
 });
 

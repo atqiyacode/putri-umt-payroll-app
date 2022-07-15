@@ -21,7 +21,7 @@
   <li :class="{ 'menuitem-active': route().current('user.index') }">
     <Link :href="route('user.index')">
       <i class="ri-group-line"></i>
-      <span>Permission</span>
+      <span>User</span>
     </Link>
   </li>
 
