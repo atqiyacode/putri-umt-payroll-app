@@ -9,19 +9,19 @@
   <li :class="{ 'menuitem-active': route().current('role.index') }">
     <Link :href="route('role.index')">
       <i class="ri-fingerprint-line"></i>
-      Role
+      <span>Role</span>
     </Link>
   </li>
   <li :class="{ 'menuitem-active': route().current('permission.index') }">
     <Link :href="route('permission.index')">
       <i class="ri-key-line"></i>
-      Permission
+      <span>Permission</span>
     </Link>
   </li>
   <li :class="{ 'menuitem-active': route().current('user.index') }">
     <Link :href="route('user.index')">
       <i class="ri-group-line"></i>
-      User
+      <span>Permission</span>
     </Link>
   </li>
 

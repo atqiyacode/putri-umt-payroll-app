@@ -14,8 +14,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $data = Role::paginate(10);
-        return inertia('superadmin/Role', compact(['data']));
+        return inertia('superadmin/Role');
     }
 
     /**

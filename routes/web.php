@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\ApiPermissionController;
+use App\Http\Controllers\API\ApiRoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -19,9 +21,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
     // superadmin route
     // superadmin
-    Route::resource('role', RoleController::class)->middleware(['role:superadmin']);
-    Route::resource('permission', PermissionController::class)->middleware(['role:superadmin']);
-    Route::resource('user', UserController::class)->middleware(['role:superadmin|admin']);
+    Route::resource('role', RoleController::class)->middleware(['role:superadmin'])->only(['index', 'create', 'show', 'edit']);
+    Route::resource('permission', PermissionController::class)->middleware(['role:superadmin'])->only(['index', 'create', 'show', 'edit']);
+    Route::resource('user', UserController::class)->middleware(['role:superadmin|admin'])->only(['index', 'create', 'show', 'edit']);
+
+
+    // api
+    Route::resource('api-role', ApiRoleController::class)->middleware(['role:superadmin'])->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('api-permission', ApiPermissionController::class)->middleware(['role:superadmin'])->only(['index', 'store', 'update', 'destroy']);
     // superadmin
 });
 

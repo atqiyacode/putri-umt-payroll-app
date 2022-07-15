@@ -14,8 +14,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $data = Permission::paginate(10);
-        return inertia('superadmin/Permission', compact(['data']));
+        return inertia('superadmin/Permission');
     }
 
     /**

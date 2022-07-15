@@ -18,6 +18,9 @@ import Column from 'primevue/column';
 import ColumnGroup from 'primevue/columngroup'; //optional for column grouping
 import Row from 'primevue/row';
 import Tooltip from 'primevue/tooltip';
+import Paginator from 'primevue/paginator';
+import InputText from 'primevue/inputtext';
+import ConfirmPopup from 'primevue/confirmpopup';
 
 // local component
 import Breadcrumb from "@/Components/Breadcrumb.vue";
@@ -38,11 +41,14 @@ createInertiaApp({
         appVue.use(ToastService)
         appVue.directive('tooltip', Tooltip);
         appVue.component('p-dialog', Dialog);
+        appVue.component('p-input-text', InputText);
         appVue.component('p-scroll-panel', ScrollPanel);
         appVue.component('p-datatable', DataTable);
         appVue.component('p-column', Column);
         appVue.component('p-column-group', ColumnGroup);
         appVue.component('p-row', Row);
+        appVue.component('p-paginator', Paginator);
+        appVue.component('p-confirm-popup', ConfirmPopup);
 
         appVue.component('a-breadcrumb', Breadcrumb);
 
