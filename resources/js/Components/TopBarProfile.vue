@@ -52,6 +52,7 @@
         method="post"
         as="button"
         class="dropdown-item notify-item"
+        style="cursor: pointer"
       >
         <i class="ri-logout-box-line"></i>
         <span>Logout</span>
@@ -61,7 +62,11 @@
 </template>
 
 <script>
+import { Link } from "@inertiajs/inertia-vue3";
 export default {
+  components: {
+    Link,
+  },
   setup() {
     //
   },

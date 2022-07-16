@@ -8,16 +8,21 @@
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-    {{-- <link href="{{ mix('/css/app.css') }}" rel="stylesheet" /> --}}
-    <link rel="shortcut icon" href="{{ asset('/') }}assets/images/favicon.ico">
-
-    <!-- App css -->
-    <link href="{{ asset('/assets') }}/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-stylesheet" />
-    <link href="{{ asset('/assets') }}/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet" />
-
-    <!-- icons -->
-    <link href="{{ asset('/assets') }}/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="{{ asset('mobile') }}/img/core-img/favicon.ico">
+    <link rel="apple-touch-icon" href="{{ asset('mobile') }}/img/icons/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('mobile') }}/img/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="{{ asset('mobile') }}/img/icons/icon-167x167.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('mobile') }}/img/icons/icon-180x180.png">
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="{{ asset('mobile') }}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('mobile') }}/css/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ asset('mobile') }}/css/tiny-slider.css">
+    <link rel="stylesheet" href="{{ asset('mobile') }}/css/baguetteBox.min.css">
+    <link rel="stylesheet" href="{{ asset('mobile') }}/css/rangeslider.css">
+    <link rel="stylesheet" href="{{ asset('mobile') }}/css/vanilla-dataTables.min.css">
+    <link rel="stylesheet" href="{{ asset('mobile') }}/css/apexcharts.css">
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="{{ asset('mobile') }}/style.css">
     <!-- Scripts -->
     @routes
     <script src="{{ mix('js/app.js') }}" defer></script>
@@ -26,11 +31,6 @@
 
 <body>
     @inertia
-    <!-- Vendor js -->
-    <script src="{{ asset('/assets') }}/js/vendor.min.js"></script>
-    <!-- App js -->
-    <script src="{{ asset('/assets') }}/js/app.min.js"></script>
-
 </body>
 
 </html>

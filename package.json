@@ -26,6 +26,8 @@
     },
     "dependencies": {
         "@vue/compiler-sfc": "^3.2.37",
+        "@vuelidate/core": "^2.0.0-alpha.42",
+        "@vuelidate/validators": "^2.0.0-alpha.30",
         "postcss-import": "^14.1.0",
         "primeicons": "^5.0.0",
         "primevue": "^3.15.0"

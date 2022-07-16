@@ -1,97 +1,138 @@
-<script setup>
-import BreezeButton from "@/Components/Button.vue";
-import BreezeGuestLayout from "@/Layouts/Guest.vue";
-import BreezeInput from "@/Components/Input.vue";
-import BreezeLabel from "@/Components/Label.vue";
-import BreezeValidationErrors from "@/Components/ValidationErrors.vue";
-import { Link, Head, useForm } from "@inertiajs/inertia-vue3";
 
-defineProps({
-  status: String,
-});
-
-const form = useForm({
-  email: "",
-});
-
-const submit = () => {
-  form.post(route("password.email"));
-};
-</script>
 
 <template>
-  <BreezeGuestLayout>
+  <GuestLayout>
     <Head title="Forgot Password" />
-
-    <div class="card">
-      <div class="card-body p-4">
-        <div class="text-center w-75 m-auto">
-          <div class="auth-logo">
-            <Link :href="route('dashboard')" class="logo logo-dark text-center">
-              <span class="logo-lg">
-                <img src="assets/images/logo-dark.png" alt="" height="22" />
-              </span>
-            </Link>
-
-            <Link
-              :href="route('dashboard')"
-              class="logo logo-light text-center"
-            >
-              <span class="logo-lg">
-                <img src="assets/images/logo-light.png" alt="" height="22" />
-              </span>
-            </Link>
-          </div>
-
-          <h3 class="text-success" v-if="status">{{ status }}</h3>
-          <h3 class="mt-3" v-else>Forgot Password</h3>
-
+    <div class="login-back-button">
+      <Link :href="route('login')">
+        <svg
+          class="bi bi-arrow-left-short"
+          width="32"
+          height="32"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"
+          ></path>
+        </svg>
+      </Link>
+    </div>
+    <div class="login-wrapper d-flex align-items-center justify-content-center">
+      <div class="custom-container">
+        <div class="text-center px-4">
+          <img
+            class="login-intro-img"
+            :src="'mobile/img/bg-img/37.png'"
+            alt=""
+          />
+        </div>
+        <!-- Register Form -->
+        <div class="register-form mt-4">
           <p class="text-muted mb-4 mt-3">
             Forgot your password? No problem. Just let us know your email
             address and we will email you a password reset link that will allow
             you to choose a new one.
           </p>
+          <form @submit.prevent="submit">
+            <div class="form-group text-start mb-3">
+              <div class="p-fluid">
+                <p-input-text
+                  class="form-control"
+                  type="email"
+                  id="emailaddress"
+                  required=""
+                  placeholder="Enter your email"
+                  v-model="form.email"
+                  @blur="v$.form.email.$touch"
+                  :class="v$.form.email.$error ? 'p-invalid' : 'p-valid'"
+                />
+              </div>
+            </div>
+
+            <div class="d-grid text-center">
+              <button
+                class="btn w-100"
+                type="submit"
+                :disabled="form.processing || v$.form.$invalid"
+                :class="v$.form.$invalid ? 'btn-danger' : 'btn-primary'"
+              >
+                <span v-if="form.processing">Processing...</span>
+                <span v-else>Reset Password</span>
+              </button>
+            </div>
+          </form>
         </div>
-
-        <form @submit.prevent="submit">
-          <div class="mb-3">
-            <label for="emailaddress" class="form-label">Email address</label>
-            <input
-              class="form-control"
-              type="email"
-              id="emailaddress"
-              required=""
-              placeholder="Enter your email"
-              v-model="form.email"
-            />
-          </div>
-
-          <div class="d-grid text-center">
-            <button
-              class="btn btn-primary"
-              type="submit"
-              :disabled="form.processing"
-            >
-              <span v-if="form.processing">Processing...</span>
-              <span v-else>Reset Password</span>
-            </button>
-          </div>
-        </form>
       </div>
-      <!-- end card-body -->
     </div>
-    <!-- end card -->
-
-    <div class="row mt-3">
-      <div class="col-12 text-center">
-        <p class="text-muted">
-          Back to
-          <Link :href="route('login')" class="text-primary fw-medium ms-1">
-            Log in
-          </Link>
-        </p>
-      </div>
-      <!-- end col -->
-    </div>
-  </BreezeGuestLayout>
+  </GuestLayout>
 </template>
+
+<script>
+import Button from "@/Components/Button.vue";
+import GuestLayout from "@/Layouts/Guest.vue";
+import Input from "@/Components/Input.vue";
+import Label from "@/Components/Label.vue";
+import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
+import useVuelidate from "@vuelidate/core";
+import { required, email } from "@vuelidate/validators";
+export default {
+  components: {
+    Button,
+    GuestLayout,
+    Input,
+    Label,
+    Head,
+    Link,
+  },
+  props: {
+    status: String,
+  },
+  setup() {
+    const form = useForm({
+      email: "",
+    });
+
+    return {
+      v$: useVuelidate(),
+      form,
+    };
+  },
+  validations() {
+    return {
+      form: {
+        email: { required, email },
+      },
+    };
+  },
+  data() {
+    return {
+      //
+    };
+  },
+  methods: {
+    submit() {
+      this.v$.$validate();
+      if (!this.v$.$error) {
+        form.post(route("password.email"));
+      } else {
+        this.$toast.add({
+          severity: "error",
+          summary: "Error",
+          detail: `${this.v$.$errors[0].$property.toLowerCase()} ${this.v$.$errors[0].$message.toLowerCase()}`,
+          life: 3000,
+        });
+      }
+    },
+    togglePassword() {
+      const password = document.querySelector("#password");
+      const type =
+        password.getAttribute("type") === "password" ? "text" : "password";
+      password.setAttribute("type", type);
+      this.showPassword = type === "password" ? false : true;
+    },
+  },
+};
+</script>

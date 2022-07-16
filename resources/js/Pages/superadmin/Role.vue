@@ -227,14 +227,7 @@ export default {
   beforeMount() {
     this.loadPage(this.page, this.perPage, this.keyword);
   },
-  mounted() {
-    this.$toast.add({
-      severity: "success",
-      summary: "Success Message",
-      detail: "Order submitted",
-      life: 3000,
-    });
-  },
+
   methods: {
     async loadPage(page, perPage) {
       await axios
