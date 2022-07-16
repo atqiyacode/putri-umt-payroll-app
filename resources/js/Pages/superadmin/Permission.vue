@@ -4,8 +4,6 @@
   <Head title="Permission" />
 
   <BreezeAuthenticatedLayout>
-    <p-confirm-popup></p-confirm-popup>
-
     <div class="row">
       <div class="col-12">
         <a-breadcrumb>
@@ -263,7 +261,7 @@ export default {
       this.formlabel = "Create New Data";
       this.submitLabel = "Save";
       this.showForm = true;
-      this.resetForm;
+      this.resetForm();
     },
     editData(item) {
       this.formlabel = "Update Data";
@@ -280,7 +278,7 @@ export default {
       this.formlabel = "";
       this.submitLabel = "";
       this.showForm = false;
-      this.resetForm;
+      this.resetForm();
       this.loadPage(this.page, this.perPage, this.keyword);
     },
 
@@ -300,6 +298,12 @@ export default {
       axios
         .post(route("api-permission.store"), this.form)
         .then((result) => {
+          this.$toast.add({
+            severity: "success",
+            summary: "Success",
+            detail: "Data Saved",
+            life: 3000,
+          });
           this.resetData();
         })
         .catch((err) => {
@@ -311,6 +315,12 @@ export default {
       axios
         .put(route("api-permission.update", this.form.id), this.form)
         .then((result) => {
+          this.$toast.add({
+            severity: "success",
+            summary: "Success",
+            detail: "Data Updated",
+            life: 3000,
+          });
           this.resetData();
         })
         .catch((err) => {
@@ -328,6 +338,12 @@ export default {
           axios
             .delete(route("api-permission.destroy", id))
             .then((result) => {
+              this.$toast.add({
+                severity: "success",
+                summary: "Success",
+                detail: "Data Deleted",
+                life: 3000,
+              });
               this.resetData();
             })
             .catch((err) => {

@@ -16,6 +16,8 @@ const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
+  <p-toast />
+  <p-confirm-popup></p-confirm-popup>
   <div id="wrapper">
     <!-- Topbar Start -->
     <TopBar></TopBar>
