@@ -1,30 +1,23 @@
 <script setup>
-import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
-import { Head } from "@inertiajs/inertia-vue3";
+import AuthenticatedLayout from "@/Layouts/Authenticated.vue";
+import { Head, Link } from "@inertiajs/inertia-vue3";
+import TopBar from "@/Components/TopBar.vue";
 </script>
 
 <template>
   <Head title="Dashboard" />
-
-  <BreezeAuthenticatedLayout>
-    <div class="row">
-      <div class="col-12">
-        <a-breadcrumb>
-          <template #header> Dashboard </template>
-          <template #content>
-            <ol class="breadcrumb m-0">
-              <li class="breadcrumb-item">
-                <a href="javascript: void(0);">Payroll App</a>
-              </li>
-              <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-          </template>
-        </a-breadcrumb>
-      </div>
+  <TopBar name="Dashboard" :canBack="false"></TopBar>
+  <AuthenticatedLayout>
+    <div class="card mb-2">
+      <Link
+        class="affan-page-item d-flex justify-content-center"
+        :href="route('master.data')"
+      >
+        <div class="icon-wrapper">
+          <i class="bi bi-star-fill"></i>
+        </div>
+        Master Data
+      </Link>
     </div>
-
-    <div class="row">
-      <div class="col-12">Payroll App - SKripsi UMT 2022</div>
-    </div>
-  </BreezeAuthenticatedLayout>
+  </AuthenticatedLayout>
 </template>

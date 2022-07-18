@@ -13,8 +13,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        $this->call(RolePermissionSeeder::class);
+        $this->call(PermissionSeeder::class);
+        $this->call(StatusTypeSeeder::class);
+        $this->call(UnitSeeder::class);
+        $this->call(PrioritySeeder::class);
+        $this->call(GroupSeeder::class);
+        $this->call(DivisionSeeder::class);
+        $this->call(WorkflowStatusSeeder::class);
+        $this->call(DurationSeeder::class);
         $this->call(UserSeeder::class);
+
+        $this->call(SubmissionSeeder::class);
+
+        $this->call(EforceAccountSeeder::class);
+        $this->call(EforceAccountDetailSeeder::class);
     }
 }

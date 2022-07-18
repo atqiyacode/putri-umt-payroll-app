@@ -22,6 +22,7 @@ import Paginator from 'primevue/paginator';
 import InputText from 'primevue/inputtext';
 import ConfirmPopup from 'primevue/confirmpopup';
 import Toast from 'primevue/toast';
+import Dropdown from 'primevue/dropdown';
 
 // local component
 import Breadcrumb from "@/Components/Breadcrumb.vue";
@@ -51,6 +52,7 @@ createInertiaApp({
         appVue.component('p-paginator', Paginator);
         appVue.component('p-confirm-popup', ConfirmPopup);
         appVue.component('p-toast', Toast);
+        appVue.component('p-dropdown', Dropdown);
 
         appVue.component('a-breadcrumb', Breadcrumb);
 

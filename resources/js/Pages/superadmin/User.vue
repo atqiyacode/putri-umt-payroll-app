@@ -1,28 +1,11 @@
 
 
 <template>
-  <Head title="Role" />
-
+  <Head title="User" />
+  <TopBar name="User" :canBack="true" :url="route('master.data')"></TopBar>
   <BreezeAuthenticatedLayout>
     <div class="row">
       <div class="col-12">
-        <a-breadcrumb>
-          <template #header> Role </template>
-          <template #content>
-            <ol class="breadcrumb m-0">
-              <li class="breadcrumb-item">
-                <a href="javascript: void(0);">Payroll App</a>
-              </li>
-              <li class="breadcrumb-item active">Role</li>
-            </ol>
-          </template>
-        </a-breadcrumb>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-12">
-        <!-- form data -->
         <div class="card" v-if="showForm">
           <div class="card-header">
             <div class="d-flex justify-content-between">
@@ -34,7 +17,7 @@
                   v-tooltip.top="'Cancel'"
                   @click="resetData"
                 >
-                  <i class="mdi mdi-cancel"></i>
+                  <i class="pi pi-cancel"></i>
                   Cancel
                 </button>
                 <button
@@ -44,7 +27,7 @@
                   v-tooltip.top="submitLabel"
                   @click="updateData"
                 >
-                  <i class="mdi mdi-check-circle"></i>
+                  <i class="pi pi-check-circle"></i>
                   {{ submitLabel }}
                 </button>
                 <button
@@ -54,7 +37,7 @@
                   v-tooltip.top="submitLabel"
                   @click="saveData"
                 >
-                  <i class="mdi mdi-check-circle"></i>
+                  <i class="pi pi-check-circle"></i>
                   {{ submitLabel }}
                 </button>
               </div>
@@ -169,7 +152,7 @@
                 v-tooltip.top="'Create New'"
                 @click="addNewData"
               >
-                <i class="mdi mdi-plus-circle-outline"></i> New Data
+                <i class="pi pi-plus-circle-outline"></i> New Data
               </button>
             </div>
           </div>
@@ -202,7 +185,7 @@
                             @click="editData(item)"
                             v-tooltip.top="'Edit'"
                           >
-                            <i class="mdi mdi-pencil"></i>
+                            <i class="pi pi-pencil"></i>
                           </button>
                           <button
                             type="button"
@@ -213,7 +196,7 @@
                             @click="deleteData($event, item.id)"
                             v-tooltip.top="'Delete'"
                           >
-                            <i class="mdi mdi-trash-can-outline"></i>
+                            <i class="pi pi-trash"></i>
                           </button>
                         </div>
                       </td>
@@ -244,10 +227,12 @@ import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import { Head } from "@inertiajs/inertia-vue3";
 import { debounce } from "lodash";
 import axios from "axios";
+import TopBar from "@/Components/TopBar.vue";
 export default {
   components: {
     BreezeAuthenticatedLayout,
     Head,
+    TopBar,
   },
   data() {
     return {
@@ -286,7 +271,7 @@ export default {
   methods: {
     async loadPage(page, perPage) {
       await axios
-        .get(route("api-user.index"), {
+        .get(route("user.index"), {
           params: {
             page: this.page,
             per_page: this.perPage,
@@ -358,7 +343,7 @@ export default {
 
     saveData() {
       axios
-        .post(route("api-user.store"), this.form)
+        .post(route("user.store"), this.form)
         .then((result) => {
           this.$toast.add({
             severity: "success",
@@ -375,7 +360,7 @@ export default {
 
     updateData() {
       axios
-        .put(route("api-user.update", this.form.id), this.form)
+        .put(route("user.update", this.form.id), this.form)
         .then((result) => {
           this.$toast.add({
             severity: "success",
@@ -398,7 +383,7 @@ export default {
         acceptClass: "p-button-danger",
         accept: () => {
           axios
-            .delete(route("api-user.destroy", id))
+            .delete(route("user.destroy", id))
             .then((result) => {
               this.$toast.add({
                 severity: "success",

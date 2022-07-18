@@ -1,58 +1,62 @@
 <template>
-  <li :class="{ 'menuitem-active': route().current('dashboard') }">
-    <Link :href="route('dashboard')">
-      <i class="ri-dashboard-line"></i>
-      <span> Dashboard </span>
-    </Link>
-  </li>
-
-  <li :class="{ 'menuitem-active': route().current('role.index') }">
-    <Link :href="route('role.index')">
-      <i class="ri-fingerprint-line"></i>
-      <span>Role</span>
-    </Link>
-  </li>
-  <li :class="{ 'menuitem-active': route().current('permission.index') }">
-    <Link :href="route('permission.index')">
-      <i class="ri-key-line"></i>
-      <span>Permission</span>
-    </Link>
-  </li>
-  <li :class="{ 'menuitem-active': route().current('user.index') }">
-    <Link :href="route('user.index')">
-      <i class="ri-group-line"></i>
-      <span>User</span>
-    </Link>
-  </li>
-
-  <li class="d-none">
-    <a
-      href="#sidebarLayouts"
-      data-bs-toggle="collapse"
-      aria-expanded="false"
-      aria-controls="sidebarLayouts"
-    >
-      <i class="ri-layout-line"></i>
-      <span> Layouts </span>
-      <span class="menu-arrow"></span>
-    </a>
-    <div class="collapse" id="sidebarLayouts">
-      <ul class="nav-second-level">
-        <li>
-          <a href="layouts-horizontal.html">Horizontal</a>
-        </li>
-        <li>
-          <a href="layouts-detached.html">Detached</a>
-        </li>
-        <li>
-          <a href="layouts-two-column.html">Two Column Menu</a>
-        </li>
-        <li>
-          <a href="layouts-preloader.html">Preloader</a>
-        </li>
-      </ul>
+  <div id="setting-popup-overlay"></div>
+  <!-- Setting Popup Card -->
+  <div class="card setting-popup-card shadow-lg" id="settingCard">
+    <div class="card-body">
+      <div class="container">
+        <div
+          class="
+            setting-heading
+            d-flex
+            align-items-center
+            justify-content-between
+            mb-3
+          "
+        >
+          <p class="mb-0">Settings</p>
+          <div class="btn-close" id="settingCardClose"></div>
+        </div>
+        <div class="single-setting-panel">
+          <div class="form-check form-switch mb-2">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="availabilityStatus"
+              checked
+            />
+            <label class="form-check-label" for="availabilityStatus"
+              >Availability status</label
+            >
+          </div>
+        </div>
+        <div class="single-setting-panel">
+          <div class="form-check form-switch mb-2">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="sendMeNotifications"
+              checked
+            />
+            <label class="form-check-label" for="sendMeNotifications"
+              >Send me notifications</label
+            >
+          </div>
+        </div>
+        <div class="single-setting-panel">
+          <div class="form-check form-switch mb-2">
+            <input class="form-check-input" type="checkbox" id="darkSwitch" />
+            <label class="form-check-label" for="darkSwitch">Dark mode</label>
+          </div>
+        </div>
+        <div class="single-setting-panel">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="rtlSwitch" />
+            <label class="form-check-label" for="rtlSwitch">RTL mode</label>
+          </div>
+        </div>
+      </div>
     </div>
-  </li>
+  </div>
 </template>
 
 <script>

@@ -2,24 +2,8 @@
 
 <template>
   <Head title="Role" />
-
+  <TopBar name="Role" :canBack="true" :url="route('master.data')"></TopBar>
   <BreezeAuthenticatedLayout>
-    <div class="row">
-      <div class="col-12">
-        <a-breadcrumb>
-          <template #header> Role </template>
-          <template #content>
-            <ol class="breadcrumb m-0">
-              <li class="breadcrumb-item">
-                <a href="javascript: void(0);">Payroll App</a>
-              </li>
-              <li class="breadcrumb-item active">Role</li>
-            </ol>
-          </template>
-        </a-breadcrumb>
-      </div>
-    </div>
-
     <div class="row">
       <div class="col-12">
         <!-- form data -->
@@ -34,27 +18,35 @@
                   v-tooltip.top="'Cancel'"
                   @click="resetData"
                 >
-                  <i class="mdi mdi-cancel"></i>
+                  <i class="bi bi-x-circle"></i>
                   Cancel
                 </button>
                 <button
                   v-if="form.id"
                   type="button"
-                  class="btn btn-sm btn-info waves-effect waves-light"
+                  class="btn btn-sm waves-effect waves-light"
                   v-tooltip.top="submitLabel"
                   @click="updateData"
+                  :disabled="v$.form.$invalid"
+                  :class="v$.form.$invalid ? 'btn-danger' : 'btn-info'"
                 >
-                  <i class="mdi mdi-check-circle"></i>
+                  <i
+                    :class="v$.form.$invalid ? 'bi bi-x' : 'bi bi-check-circle'"
+                  ></i>
                   {{ submitLabel }}
                 </button>
                 <button
                   v-else
                   type="button"
-                  class="btn btn-sm btn-success waves-effect waves-light"
+                  class="btn btn-sm waves-effect waves-light"
                   v-tooltip.top="submitLabel"
                   @click="saveData"
+                  :disabled="v$.form.$invalid"
+                  :class="v$.form.$invalid ? 'btn-danger' : 'btn-success'"
                 >
-                  <i class="mdi mdi-check-circle"></i>
+                  <i
+                    :class="v$.form.$invalid ? 'bi bi-x' : 'bi bi-check-circle'"
+                  ></i>
                   {{ submitLabel }}
                 </button>
               </div>
@@ -63,34 +55,42 @@
           <div class="card-body">
             <div class="mb-2">
               <label for="name" class="form-label">Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                placeholder="Role name"
-                v-model="form.name"
-                :class="{ 'is-invalid': errors.name }"
-              />
+              <div class="p-fluid">
+                <p-input-text
+                  type="text"
+                  id="name"
+                  placeholder="Permission name"
+                  v-model="form.name"
+                  @blur="v$.form.name.$touch"
+                  :class="
+                    v$.form.name.$error ? 'p-invalid is-invalid' : 'p-valid'
+                  "
+                />
+              </div>
               <div class="invalid-feedback" v-if="errors.name">
                 {{ errors.name[0] }}
               </div>
             </div>
             <div class="mb-2">
               <label for="guard_name" class="form-label">Guard name</label>
-              <select
-                name="guard_name"
-                id="guard_name"
-                v-model="form.guard_name"
-                class="form-control"
-                placeholder="Select guard name"
-                :class="{ 'is-invalid': errors.guard_name }"
-              >
-                <option value="">Select guard name</option>
-                <option value="web">Web</option>
-                <option value="api">Api</option>
-              </select>
-              <div class="invalid-feedback" v-if="errors.guard_name">
-                {{ errors.guard_name[0] }}
+              <div class="p-fluid">
+                <p-dropdown
+                  v-model="form.guard_name"
+                  class="p-dropdown-sm"
+                  :options="[{ name: 'web' }, { name: 'api' }]"
+                  optionLabel="name"
+                  optionValue="name"
+                  placeholder="Select guard name"
+                  @blur="v$.form.guard_name.$touch"
+                  :class="
+                    v$.form.guard_name.$error
+                      ? 'p-invalid is-invalid'
+                      : 'p-valid'
+                  "
+                />
+                <div class="invalid-feedback" v-if="errors.guard_name">
+                  {{ errors.guard_name[0] }}
+                </div>
               </div>
             </div>
           </div>
@@ -103,12 +103,12 @@
                 :class="keyword ? 'p-input-icon-right' : 'p-input-icon-left'"
               >
                 <i
-                  class="pi pi-times"
+                  class="bi bi-times"
                   v-if="keyword"
                   style="cursor: pointer"
                   @click="resetData"
                 />
-                <i class="pi pi-search" v-else />
+                <i class="bi bi-search" v-else />
                 <p-input-text
                   type="text"
                   class="p-inputtext-sm m-0"
@@ -117,13 +117,14 @@
                   @input="filter"
                 />
               </span>
+
               <button
                 type="button"
                 class="btn btn-sm btn-info waves-effect waves-light"
                 v-tooltip.top="'Create New'"
                 @click="addNewData"
               >
-                <i class="mdi mdi-plus-circle-outline"></i> New Data
+                <i class="bi bi-plus-circle"></i>
               </button>
             </div>
           </div>
@@ -152,7 +153,7 @@
                             @click="editData(item)"
                             v-tooltip.top="'Edit'"
                           >
-                            <i class="mdi mdi-pencil"></i>
+                            <i class="bi bi-pencil"></i>
                           </button>
                           <button
                             type="button"
@@ -163,7 +164,7 @@
                             @click="deleteData($event, item.id)"
                             v-tooltip.top="'Delete'"
                           >
-                            <i class="mdi mdi-trash-can-outline"></i>
+                            <i class="bi bi-trash"></i>
                           </button>
                         </div>
                       </td>
@@ -194,10 +195,27 @@ import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import { Head } from "@inertiajs/inertia-vue3";
 import { debounce } from "lodash";
 import axios from "axios";
+import TopBar from "@/Components/TopBar.vue";
+import useVuelidate from "@vuelidate/core";
+import { required } from "@vuelidate/validators";
 export default {
+  setup() {
+    return {
+      v$: useVuelidate(),
+    };
+  },
+  validations() {
+    return {
+      form: {
+        name: { required },
+        guard_name: { required },
+      },
+    };
+  },
   components: {
     BreezeAuthenticatedLayout,
     Head,
+    TopBar,
   },
   data() {
     return {
@@ -227,11 +245,10 @@ export default {
   beforeMount() {
     this.loadPage(this.page, this.perPage, this.keyword);
   },
-
   methods: {
     async loadPage(page, perPage) {
       await axios
-        .get(route("api-role.index"), {
+        .get(route("role.index"), {
           params: {
             page: this.page,
             per_page: this.perPage,
@@ -295,25 +312,35 @@ export default {
     },
 
     saveData() {
-      axios
-        .post(route("api-role.store"), this.form)
-        .then((result) => {
-          this.$toast.add({
-            severity: "success",
-            summary: "Success",
-            detail: "Data Saved",
-            life: 3000,
+      this.v$.$validate();
+      if (!this.v$.$error) {
+        axios
+          .post(route("role.store"), this.form)
+          .then((result) => {
+            this.$toast.add({
+              severity: "success",
+              summary: "Success",
+              detail: "Data Saved",
+              life: 3000,
+            });
+            this.resetData();
+          })
+          .catch((err) => {
+            this.errors = err.response.data.errors;
           });
-          this.resetData();
-        })
-        .catch((err) => {
-          this.errors = err.response.data.errors;
+      } else {
+        this.$toast.add({
+          severity: "error",
+          summary: "Error",
+          detail: `${this.v$.$errors[0].$property.toLowerCase()} ${this.v$.$errors[0].$message.toLowerCase()}`,
+          life: 3000,
         });
+      }
     },
 
     updateData() {
       axios
-        .put(route("api-role.update", this.form.id), this.form)
+        .put(route("role.update", this.form.id), this.form)
         .then((result) => {
           this.$toast.add({
             severity: "success",
@@ -332,11 +359,11 @@ export default {
       this.$confirm.require({
         target: event.currentTarget,
         message: "Are you sure you want to proceed?",
-        icon: "pi pi-exclamation-triangle",
+        icon: "bi bi-exclamation-triangle",
         acceptClass: "p-button-danger",
         accept: () => {
           axios
-            .delete(route("api-role.destroy", id))
+            .delete(route("role.destroy", id))
             .then((result) => {
               this.$toast.add({
                 severity: "success",

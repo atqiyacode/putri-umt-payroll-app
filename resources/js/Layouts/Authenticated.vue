@@ -11,47 +11,20 @@ import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import { Link } from "@inertiajs/inertia-vue3";
+import SidebarMenu from "@/Components/SidebarMenu.vue";
 
 const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
-  <p-toast />
+  <p-toast position="top-center" />
   <p-confirm-popup></p-confirm-popup>
-  <div id="wrapper">
-    <!-- Topbar Start -->
-    <TopBar></TopBar>
-    <!-- end Topbar -->
 
-    <!-- ========== Left Sidebar Start ========== -->
-    <LeftSideBar></LeftSideBar>
-    <!-- Left Sidebar End -->
-
-    <!-- ============================================================== -->
-    <!-- Start Page Content here -->
-    <!-- ============================================================== -->
-
-    <div class="content-page">
-      <div class="content">
-        <!-- Start Content-->
-        <div class="container-fluid">
-          <!-- start page title -->
-
-          <slot />
-          <!-- end page title -->
-        </div>
-        <!-- container -->
-      </div>
-      <!-- content -->
-
-      <!-- Footer Start -->
-      <Footer></Footer>
-      <!-- end Footer -->
+  <div class="page-content-wrapper py-3">
+    <div class="container">
+      <slot />
     </div>
-
-    <!-- ============================================================== -->
-    <!-- End Page content -->
-    <!-- ============================================================== -->
   </div>
-  <RightBarMenu></RightBarMenu>
+
+  <Footer></Footer>
 </template>

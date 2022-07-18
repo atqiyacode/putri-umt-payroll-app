@@ -39,6 +39,13 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user() ?  new UserResource($request->user()) : null,
             ],
+            'urlPrev' => function () {
+                if (url()->previous() !== route('login') && url()->previous() !== '' && url()->previous() !== url()->current()) {
+                    return url()->previous();
+                } else {
+                    return 'empty'; // used in javascript to disable back button behavior
+                }
+            },
             // 'ziggy' => function () use ($request) {
             //     return array_merge((new Ziggy)->toArray(), [
             //         'location' => $request->url(),
