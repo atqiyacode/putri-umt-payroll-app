@@ -9,15 +9,10 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-    {{-- <link href="{{ mix('/css/app.css') }}" rel="stylesheet" /> --}}
-    <link rel="shortcut icon" href="{{ asset('/') }}assets/images/favicon.ico">
-
-    <!-- App css -->
-    <link href="{{ asset('/assets') }}/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-stylesheet" />
-    <link href="{{ asset('/assets') }}/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet" />
-
-    <!-- icons -->
-    <link href="{{ asset('/assets') }}/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('/assets') }}/images/favicon.png" />
+    <link href="{{ asset('/assets') }}/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="{{ asset('/assets') }}/vendor/datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="{{ asset('/assets') }}/css/style.css" rel="stylesheet">
     <!-- Scripts -->
     @routes
     <script src="{{ mix('js/app.js') }}" defer></script>
@@ -26,10 +21,23 @@
 
 <body>
     @inertia
-    <!-- Vendor js -->
-    <script src="{{ asset('/assets') }}/js/vendor.min.js"></script>
-    <!-- App js -->
-    <script src="{{ asset('/assets') }}/js/app.min.js"></script>
+
+
+    <script src="{{ asset('/assets') }}/vendor/global/global.min.js"></script>
+    {{-- <script src="{{ asset('/assets') }}/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="{{ asset('/assets') }}/js/custom.min.js"></script>
+    <script src="{{ asset('/assets') }}/js/deznav-init.js"></script>
+    <script src="{{ asset('/assets') }}/js/demo.js"></script>
+    <script src="{{ asset('/assets') }}/js/styleSwitcher.js"></script>
+    <script src="{{ asset('/assets') }}/vendor/datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $(function() {
+            $("#datepicker").datepicker({
+                autoclose: true,
+                todayHighlight: true
+            }).datepicker('update', new Date());
+        });
+    </script> --}}
 
 </body>
 

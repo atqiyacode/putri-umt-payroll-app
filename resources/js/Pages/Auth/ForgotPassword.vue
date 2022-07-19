@@ -1,13 +1,15 @@
 <script setup>
-import BreezeButton from "@/Components/Button.vue";
-import BreezeGuestLayout from "@/Layouts/Guest.vue";
-import BreezeInput from "@/Components/Input.vue";
-import BreezeLabel from "@/Components/Label.vue";
-import BreezeValidationErrors from "@/Components/ValidationErrors.vue";
+import Button from "@/Components/Button.vue";
+import GuestLayout from "@/Layouts/Guest.vue";
+import Input from "@/Components/Input.vue";
+import Label from "@/Components/Label.vue";
+import ValidationErrors from "@/Components/ValidationErrors.vue";
 import { Link, Head, useForm } from "@inertiajs/inertia-vue3";
+import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 
 defineProps({
   status: String,
+  errors: String,
 });
 
 const form = useForm({
@@ -20,78 +22,64 @@ const submit = () => {
 </script>
 
 <template>
-  <BreezeGuestLayout>
+  <GuestLayout>
     <Head title="Forgot Password" />
 
-    <div class="card">
-      <div class="card-body p-4">
-        <div class="text-center w-75 m-auto">
-          <div class="auth-logo">
-            <Link :href="route('dashboard')" class="logo logo-dark text-center">
-              <span class="logo-lg">
-                <img src="assets/images/logo-dark.png" alt="" height="22" />
-              </span>
-            </Link>
+    <div class="authincation-content">
+      <div class="row no-gutters">
+        <div class="col-xl-12">
+          <div class="auth-form">
+            <div class="text-center mb-3">
+              <Link :href="route('dashboard')">
+                <ApplicationLogo />
+              </Link>
+            </div>
+            <h4 class="text-success text-center mb-4" v-if="status">
+              {{ status }}
+            </h4>
+            <h4 class="text-center mb-4" v-else>Forgot Password</h4>
 
-            <Link
-              :href="route('dashboard')"
-              class="logo logo-light text-center"
-            >
-              <span class="logo-lg">
-                <img src="assets/images/logo-light.png" alt="" height="22" />
-              </span>
-            </Link>
+            <p class="text-muted mb-4 mt-3">
+              Forgot your password? No problem. Just let us know your email
+              address and we will email you a password reset link that will
+              allow you to choose a new one.
+            </p>
+            <form @submit.prevent="submit">
+              <div class="mb-3">
+                <label class="mb-1"><strong>Email</strong></label>
+                <input
+                  class="form-control"
+                  type="email"
+                  id="emailaddress"
+                  placeholder="Enter your email"
+                  v-model="form.email"
+                  :class="{ 'is-invalid': errors.email }"
+                />
+                <div class="invalid-feedback">
+                  {{ errors.email }}
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button
+                  class="btn btn-primary btn-block"
+                  type="submit"
+                  :disabled="form.processing"
+                >
+                  <span v-if="form.processing">Processing...</span>
+                  <span v-else>Reset Password</span>
+                </button>
+              </div>
+            </form>
+            <div class="new-account mt-3">
+              <p class="mb-0 mb-sm-3">
+                Back to
+                <Link :href="route('login')" class="text-primary">Log In</Link>
+              </p>
+            </div>
           </div>
-
-          <h3 class="text-success" v-if="status">{{ status }}</h3>
-          <h3 class="mt-3" v-else>Forgot Password</h3>
-
-          <p class="text-muted mb-4 mt-3">
-            Forgot your password? No problem. Just let us know your email
-            address and we will email you a password reset link that will allow
-            you to choose a new one.
-          </p>
         </div>
-
-        <form @submit.prevent="submit">
-          <div class="mb-3">
-            <label for="emailaddress" class="form-label">Email address</label>
-            <input
-              class="form-control"
-              type="email"
-              id="emailaddress"
-              required=""
-              placeholder="Enter your email"
-              v-model="form.email"
-            />
-          </div>
-
-          <div class="d-grid text-center">
-            <button
-              class="btn btn-primary"
-              type="submit"
-              :disabled="form.processing"
-            >
-              <span v-if="form.processing">Processing...</span>
-              <span v-else>Reset Password</span>
-            </button>
-          </div>
-        </form>
       </div>
-      <!-- end card-body -->
     </div>
-    <!-- end card -->
-
-    <div class="row mt-3">
-      <div class="col-12 text-center">
-        <p class="text-muted">
-          Back to
-          <Link :href="route('login')" class="text-primary fw-medium ms-1">
-            Log in
-          </Link>
-        </p>
-      </div>
-      <!-- end col -->
-    </div>
-  </BreezeGuestLayout>
+  </GuestLayout>
 </template>

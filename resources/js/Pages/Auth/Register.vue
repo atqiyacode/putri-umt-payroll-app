@@ -1,19 +1,24 @@
 <script>
-import BreezeButton from "@/Components/Button.vue";
-import BreezeCheckbox from "@/Components/Checkbox.vue";
-import BreezeGuestLayout from "@/Layouts/Guest.vue";
-import BreezeInput from "@/Components/Input.vue";
-import BreezeLabel from "@/Components/Label.vue";
+import Button from "@/Components/Button.vue";
+import Checkbox from "@/Components/Checkbox.vue";
+import GuestLayout from "@/Layouts/Guest.vue";
+import Input from "@/Components/Input.vue";
+import Label from "@/Components/Label.vue";
 import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
+import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 export default {
   components: {
-    BreezeButton,
-    BreezeCheckbox,
-    BreezeGuestLayout,
-    BreezeInput,
-    BreezeLabel,
+    Button,
+    Checkbox,
+    GuestLayout,
+    Input,
+    Label,
     Head,
     Link,
+    ApplicationLogo,
+  },
+  props: {
+    errors: Object,
   },
   setup() {
     const form = useForm({
@@ -53,140 +58,120 @@ export default {
 </script>
 
 <template>
-  <BreezeGuestLayout>
+  <GuestLayout>
     <Head title="Register" />
-    <div class="card">
-      <div class="card-body p-4">
-        <div class="text-center w-50 m-auto">
-          <div class="auth-logo">
-            <Link :href="route('dashboard')" class="logo logo-dark text-center">
-              <span class="logo-lg">
-                <img src="assets/images/logo-dark.png" alt="" height="22" />
-              </span>
-            </Link>
+    <div class="authincation-content">
+      <div class="row no-gutters">
+        <div class="col-xl-12">
+          <div class="auth-form">
+            <div class="text-center mb-3">
+              <Link :href="route('dashboard')">
+                <ApplicationLogo />
+              </Link>
+            </div>
+            <h4 class="text-center mb-4">Register</h4>
+            <form @submit.prevent="submit">
+              <div class="mb-3">
+                <label class="mb-1"><strong>Full Name</strong></label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="fullName"
+                  placeholder="Enter your full name"
+                  v-model="form.name"
+                  :class="{ 'is-invalid': errors.name }"
+                />
+                <div class="invalid-feedback">
+                  {{ errors.name }}
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="mb-1"><strong>Email</strong></label>
+                <input
+                  class="form-control"
+                  type="email"
+                  id="emailaddress"
+                  placeholder="Enter your email"
+                  v-model="form.email"
+                  :class="{ 'is-invalid': errors.email }"
+                />
+                <div class="invalid-feedback">
+                  {{ errors.email }}
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="mb-1"><strong>Password</strong></label>
+                <div class="input-group input-group-merge">
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    placeholder="Enter your password"
+                    v-model="form.password"
+                    :class="{ 'is-invalid': errors.password }"
+                  />
 
-            <Link
-              :href="route('dashboard')"
-              class="logo logo-light text-center"
-            >
-              <span class="logo-lg">
-                <img src="assets/images/logo-light.png" alt="" height="22" />
-              </span>
-            </Link>
+                  <div
+                    class="input-group-text"
+                    @click="togglePassword"
+                    id="togglePassword"
+                  >
+                    <span class="fa fa-eye-slash" v-if="showPassword"></span>
+                    <span class="fa fa-eye" v-else></span>
+                  </div>
+                </div>
+                <small class="text-danger">
+                  {{ errors.password }}
+                </small>
+              </div>
+              <div class="mb-3">
+                <label class="mb-1"
+                  ><strong>Password Confirmation</strong></label
+                >
+                <div class="input-group input-group-merge">
+                  <input
+                    type="password"
+                    id="passwordConfirmation"
+                    class="form-control"
+                    placeholder="Enter your password confirmation"
+                    v-model="form.password_confirmation"
+                    :class="{ 'is-invalid': errors.password_confirmation }"
+                  />
+
+                  <div
+                    class="input-group-text"
+                    @click="togglePassword"
+                    id="togglePassword"
+                  >
+                    <span class="fa fa-eye-slash" v-if="showPassword"></span>
+                    <span class="fa fa-eye" v-else></span>
+                  </div>
+                </div>
+                <small class="text-danger">
+                  {{ errors.password_confirmation }}
+                </small>
+              </div>
+
+              <div class="text-center">
+                <button
+                  class="btn btn-primary btn-block"
+                  type="submit"
+                  :disabled="form.processing"
+                >
+                  <span v-if="form.processing">Processing...</span>
+                  <span v-else>Sign up</span>
+                </button>
+              </div>
+            </form>
+            <div class="new-account mt-3">
+              <p class="mb-0 mb-sm-3">
+                Have an account?
+                <Link :href="route('login')" class="text-primary">Sign In</Link>
+              </p>
+            </div>
           </div>
-          <p class="text-muted mb-4 mt-3">
-            Enter your email address and password to access admin panel.
-          </p>
         </div>
-
-        <form @submit.prevent="submit">
-          <div class="mb-2">
-            <label for="name" class="form-label">Full Name</label>
-            <input
-              class="form-control"
-              type="text"
-              id="name"
-              required=""
-              placeholder="Full name"
-              v-model="form.name"
-            />
-          </div>
-
-          <div class="mb-2">
-            <label for="emailaddress" class="form-label">Email address</label>
-            <input
-              class="form-control"
-              type="email"
-              id="emailaddress"
-              required=""
-              placeholder="Enter your email"
-              v-model="form.email"
-            />
-          </div>
-
-          <div class="mb-2">
-            <label for="password" class="form-label">Password</label>
-            <div class="input-group input-group-merge">
-              <input
-                type="password"
-                id="password"
-                class="form-control"
-                placeholder="Enter your password"
-                v-model="form.password"
-              />
-
-              <div
-                class="input-group-text"
-                @click="togglePassword"
-                id="togglePassword"
-              >
-                <span class="fa fa-eye-slash" v-if="showPassword"></span>
-                <span class="fa fa-eye" v-else></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mb-2">
-            <label for="password_confirmation" class="form-label"
-              >Password Confirmation</label
-            >
-            <div class="input-group input-group-merge">
-              <input
-                type="password"
-                id="password_confirmation"
-                class="form-control"
-                placeholder="Enter your password confirmation"
-                v-model="form.password_confirmation"
-              />
-
-              <div
-                class="input-group-text"
-                @click="togglePassword"
-                id="togglePassword"
-              >
-                <span class="fa fa-eye-slash" v-if="showPassword"></span>
-                <span class="fa fa-eye" v-else></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <div class="form-check">
-              <BreezeCheckbox
-                id="checkbox-signin"
-                class="form-check-input"
-                name="terms"
-                v-model:checked="form.terms"
-              />
-              <label class="form-check-label" for="checkbox-signin">
-                I accept Terms and Conditions
-              </label>
-            </div>
-          </div>
-
-          <div class="d-grid mb-0 text-center">
-            <button
-              class="btn btn-primary"
-              type="submit"
-              :disabled="form.processing"
-            >
-              <span v-if="form.processing">Processing...</span>
-              <span v-else>Register</span>
-            </button>
-          </div>
-        </form>
       </div>
     </div>
-
-    <div class="row mt-3">
-      <div class="col-12 text-center">
-        <p class="text-muted">
-          Already have account?
-          <Link :href="route('login')" class="text-primary fw-medium ms-1">
-            Sign In
-          </Link>
-        </p>
-      </div>
-    </div>
-  </BreezeGuestLayout>
+  </GuestLayout>
 </template>

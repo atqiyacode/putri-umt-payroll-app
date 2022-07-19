@@ -1,13 +1,15 @@
 <script setup>
-import BreezeButton from "@/Components/Button.vue";
-import BreezeGuestLayout from "@/Layouts/Guest.vue";
-import BreezeInput from "@/Components/Input.vue";
-import BreezeLabel from "@/Components/Label.vue";
-import { Head, useForm } from "@inertiajs/inertia-vue3";
+import Button from "@/Components/Button.vue";
+import GuestLayout from "@/Layouts/Guest.vue";
+import Input from "@/Components/Input.vue";
+import Label from "@/Components/Label.vue";
+import { Head, useForm, Link } from "@inertiajs/inertia-vue3";
+import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 
 const props = defineProps({
   email: String,
   token: String,
+  errors: Object,
 });
 
 const form = useForm({
@@ -22,191 +24,111 @@ const submit = () => {
     onFinish: () => form.reset("password", "password_confirmation"),
   });
 };
+const togglePassword = () => {
+  const password = document.querySelector("#password");
+  const type =
+    password.getAttribute("type") === "password" ? "text" : "password";
+  password.setAttribute("type", type);
+  this.showPassword = type === "password" ? false : true;
+};
 </script>
 
 <template>
-  <BreezeGuestLayout>
+  <GuestLayout>
     <Head title="Reset Password" />
 
-    <div class="card">
-      <div class="card-body p-4">
-        <div class="text-center w-75 m-auto">
-          <div class="auth-logo">
-            <Link :href="route('dashboard')" class="logo logo-dark text-center">
-              <span class="logo-lg">
-                <img src="assets/images/logo-dark.png" alt="" height="22" />
-              </span>
-            </Link>
+    <div class="authincation-content">
+      <div class="row no-gutters">
+        <div class="col-xl-12">
+          <div class="auth-form">
+            <div class="text-center mb-3">
+              <Link :href="route('dashboard')">
+                <ApplicationLogo />
+              </Link>
+            </div>
+            <h4 class="text-center mb-4">Reset Password</h4>
+            <form @submit.prevent="submit">
+              <div class="mb-3">
+                <label class="mb-1"><strong>Email</strong></label>
+                <input
+                  class="form-control"
+                  type="email"
+                  id="emailaddress"
+                  placeholder="Enter your email"
+                  v-model="form.email"
+                  :class="{ 'is-invalid': errors.email }"
+                />
+                <div class="invalid-feedback">
+                  {{ errors.email }}
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="mb-1"><strong>Password</strong></label>
+                <div class="input-group input-group-merge">
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    placeholder="Enter your password"
+                    v-model="form.password"
+                    :class="{ 'is-invalid': errors.password }"
+                  />
 
-            <Link
-              :href="route('dashboard')"
-              class="logo logo-light text-center"
-            >
-              <span class="logo-lg">
-                <img src="assets/images/logo-light.png" alt="" height="22" />
-              </span>
-            </Link>
+                  <div
+                    class="input-group-text"
+                    @click="togglePassword"
+                    id="togglePassword"
+                  >
+                    <span class="fa fa-eye-slash" v-if="showPassword"></span>
+                    <span class="fa fa-eye" v-else></span>
+                  </div>
+                </div>
+                <small class="text-danger">
+                  {{ errors.password }}
+                </small>
+              </div>
+              <div class="mb-3">
+                <label class="mb-1"
+                  ><strong>Password Confirmation</strong></label
+                >
+                <div class="input-group input-group-merge">
+                  <input
+                    type="password"
+                    id="passwordConfirmation"
+                    class="form-control"
+                    placeholder="Enter your password confirmation"
+                    v-model="form.password_confirmation"
+                    :class="{ 'is-invalid': errors.password_confirmation }"
+                  />
+
+                  <div
+                    class="input-group-text"
+                    @click="togglePassword"
+                    id="togglePassword"
+                  >
+                    <span class="fa fa-eye-slash" v-if="showPassword"></span>
+                    <span class="fa fa-eye" v-else></span>
+                  </div>
+                </div>
+                <small class="text-danger">
+                  {{ errors.password_confirmation }}
+                </small>
+              </div>
+
+              <div class="text-center">
+                <button
+                  class="btn btn-primary btn-block"
+                  type="submit"
+                  :disabled="form.processing"
+                >
+                  <span v-if="form.processing">Processing...</span>
+                  <span v-else>Reset Password</span>
+                </button>
+              </div>
+            </form>
           </div>
-
-          <template v-if="status">
-            <svg
-              version="1.1"
-              xmlns:x="&ns_extend;"
-              xmlns:i="&ns_ai;"
-              xmlns:graph="&ns_graphs;"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              x="0px"
-              y="0px"
-              viewBox="0 0 98 98"
-              style="height: 120px"
-              xml:space="preserve"
-            >
-              <g i:extraneous="self">
-                <circle id="XMLID_50_" class="st0" cx="49" cy="49" r="49" />
-                <g id="XMLID_4_">
-                  <path
-                    id="XMLID_49_"
-                    class="st1"
-                    d="M77.3,42.7V77c0,0.6-0.4,1-1,1H21.7c-0.5,0-1-0.5-1-1V42.7c0-0.3,0.1-0.6,0.4-0.8l27.3-21.7
-                                                        c0.3-0.3,0.8-0.3,1.2,0l27.3,21.7C77.1,42.1,77.3,42.4,77.3,42.7z"
-                  />
-                  <path
-                    id="XMLID_48_"
-                    class="st2"
-                    d="M66.5,69.5h-35c-1.1,0-2-0.9-2-2V26.8c0-1.1,0.9-2,2-2h35c1.1,0,2,0.9,2,2v40.7
-                                                        C68.5,68.6,67.6,69.5,66.5,69.5z"
-                  />
-                  <path
-                    id="XMLID_47_"
-                    class="st1"
-                    d="M62.9,33.4H47.2c-0.5,0-0.9-0.4-0.9-0.9v-0.2c0-0.5,0.4-0.9,0.9-0.9h15.7
-                                                        c0.5,0,0.9,0.4,0.9,0.9v0.2C63.8,33,63.4,33.4,62.9,33.4z"
-                  />
-                  <path
-                    id="XMLID_46_"
-                    class="st1"
-                    d="M62.9,40.3H47.2c-0.5,0-0.9-0.4-0.9-0.9v-0.2c0-0.5,0.4-0.9,0.9-0.9h15.7
-                                                        c0.5,0,0.9,0.4,0.9,0.9v0.2C63.8,39.9,63.4,40.3,62.9,40.3z"
-                  />
-                  <path
-                    id="XMLID_45_"
-                    class="st1"
-                    d="M62.9,47.2H47.2c-0.5,0-0.9-0.4-0.9-0.9v-0.2c0-0.5,0.4-0.9,0.9-0.9h15.7
-                                                        c0.5,0,0.9,0.4,0.9,0.9v0.2C63.8,46.8,63.4,47.2,62.9,47.2z"
-                  />
-                  <path
-                    id="XMLID_44_"
-                    class="st1"
-                    d="M62.9,54.1H47.2c-0.5,0-0.9-0.4-0.9-0.9v-0.2c0-0.5,0.4-0.9,0.9-0.9h15.7
-                                                        c0.5,0,0.9,0.4,0.9,0.9v0.2C63.8,53.7,63.4,54.1,62.9,54.1z"
-                  />
-                  <path
-                    id="XMLID_43_"
-                    class="st2"
-                    d="M41.6,40.1h-5.8c-0.6,0-1-0.4-1-1v-6.7c0-0.6,0.4-1,1-1h5.8c0.6,0,1,0.4,1,1v6.7
-                                                        C42.6,39.7,42.2,40.1,41.6,40.1z"
-                  />
-                  <path
-                    id="XMLID_42_"
-                    class="st2"
-                    d="M41.6,54.2h-5.8c-0.6,0-1-0.4-1-1v-6.7c0-0.6,0.4-1,1-1h5.8c0.6,0,1,0.4,1,1v6.7
-                                                        C42.6,53.8,42.2,54.2,41.6,54.2z"
-                  />
-                  <path
-                    id="XMLID_41_"
-                    class="st1"
-                    d="M23.4,46.2l25,17.8c0.3,0.2,0.7,0.2,1.1,0l26.8-19.8l-3.3,30.9H27.7L23.4,46.2z"
-                  />
-                  <path
-                    id="XMLID_40_"
-                    class="st3"
-                    d="M74.9,45.2L49.5,63.5c-0.3,0.2-0.7,0.2-1.1,0L23.2,45.2"
-                  />
-                </g>
-              </g>
-            </svg>
-
-            <h3 class="text-success">{{ status }}</h3>
-          </template>
-
-          <template v-else>
-            <h3 class="mt-3">Reset Password</h3>
-          </template>
         </div>
-
-        <form @submit.prevent="submit">
-          <div class="mb-2">
-            <label for="emailaddress" class="form-label">Email address</label>
-            <input
-              class="form-control"
-              type="email"
-              id="emailaddress"
-              required=""
-              placeholder="Enter your email"
-              v-model="form.email"
-            />
-          </div>
-
-          <div class="mb-2">
-            <label for="password" class="form-label">Password</label>
-            <div class="input-group input-group-merge">
-              <input
-                type="password"
-                id="password"
-                class="form-control"
-                placeholder="Enter your password"
-                v-model="form.password"
-              />
-
-              <div
-                class="input-group-text"
-                @click="togglePassword"
-                id="togglePassword"
-              >
-                <span class="fa fa-eye-slash" v-if="showPassword"></span>
-                <span class="fa fa-eye" v-else></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mb-2">
-            <label for="password_confirmation" class="form-label"
-              >Password Confirmation</label
-            >
-            <div class="input-group input-group-merge">
-              <input
-                type="password"
-                id="password_confirmation"
-                class="form-control"
-                placeholder="Enter your password confirmation"
-                v-model="form.password_confirmation"
-              />
-
-              <div
-                class="input-group-text"
-                @click="togglePassword"
-                id="togglePassword"
-              >
-                <span class="fa fa-eye-slash" v-if="showPassword"></span>
-                <span class="fa fa-eye" v-else></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="d-grid text-center">
-            <button
-              class="btn btn-primary"
-              type="submit"
-              :disabled="form.processing"
-            >
-              <span v-if="form.processing">Processing...</span>
-              <span v-else>Reset Password</span>
-            </button>
-          </div>
-        </form>
       </div>
-      <!-- end card-body -->
     </div>
-  </BreezeGuestLayout>
+  </GuestLayout>
 </template>

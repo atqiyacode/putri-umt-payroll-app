@@ -305,7 +305,7 @@ export default {
       localStorage.setItem("dataLayout", JSON.stringify(data));
       setTimeout(() => {
         this.setDataLayout();
-      }, 200);
+      }, 2000);
     },
 
     setDataLayout() {
