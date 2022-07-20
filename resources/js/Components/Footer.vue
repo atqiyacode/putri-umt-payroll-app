@@ -1,18 +1,17 @@
 <template>
-  <footer class="footer">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6">
-          2022 &copy; Minton theme by <a href="#">Coderthemes</a>
-        </div>
-        <div class="col-md-6">
-          <!-- <div class="text-md-end footer-links d-none d-sm-block">
-            <a href="javascript:void(0);">About Us</a>
-            <a href="javascript:void(0);">Help</a>
-            <a href="javascript:void(0);">Contact Us</a>
-          </div> -->
-        </div>
-      </div>
+  <div class="footer">
+    <div class="copyright">
+      <p>
+        Teknik Informatika - Universitas Muhammadiyah Tangerang
+        <span class="fs-14 font-w400">© 2022 </span>
+      </p>
     </div>
-  </footer>
+  </div>
 </template>
+<script>
+export default {
+  setup() {
+    //
+  },
+};
+</script>

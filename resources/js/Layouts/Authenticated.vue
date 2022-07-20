@@ -11,6 +11,7 @@ import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import { Link } from "@inertiajs/inertia-vue3";
+import NavHeader from "@/Components/NavHeader.vue";
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -18,7 +19,11 @@ const showingNavigationDropdown = ref(false);
 <template>
   <p-toast />
   <p-confirm-popup></p-confirm-popup>
-  <div id="wrapper">
+  <div id="main-wrapper">
+    <!-- Topbar Start -->
+    <NavHeader></NavHeader>
+    <!-- end Topbar -->
+
     <!-- Topbar Start -->
     <TopBar></TopBar>
     <!-- end Topbar -->
@@ -31,27 +36,16 @@ const showingNavigationDropdown = ref(false);
     <!-- Start Page Content here -->
     <!-- ============================================================== -->
 
-    <div class="content-page">
-      <div class="content">
-        <!-- Start Content-->
-        <div class="container-fluid">
-          <!-- start page title -->
-
-          <slot />
-          <!-- end page title -->
-        </div>
-        <!-- container -->
+    <div class="content-body">
+      <div class="container-fluid">
+        <slot />
       </div>
-      <!-- content -->
-
-      <!-- Footer Start -->
-      <Footer></Footer>
-      <!-- end Footer -->
     </div>
+
+    <Footer></Footer>
 
     <!-- ============================================================== -->
     <!-- End Page content -->
     <!-- ============================================================== -->
   </div>
-  <RightBarMenu></RightBarMenu>
 </template>

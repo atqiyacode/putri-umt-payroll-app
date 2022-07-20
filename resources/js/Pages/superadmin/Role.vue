@@ -5,58 +5,40 @@
   <BreezeAuthenticatedLayout>
     <div class="row">
       <div class="col-12">
-        <a-breadcrumb>
-          <template #header> Role </template>
-          <template #content>
-            <ol class="breadcrumb m-0">
-              <li class="breadcrumb-item">
-                <a href="javascript: void(0);">Payroll App</a>
-              </li>
-              <li class="breadcrumb-item active">Role</li>
-            </ol>
-          </template>
-        </a-breadcrumb>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-12">
         <!-- form data -->
         <div class="card" v-if="showForm">
-          <div class="card-header">
-            <div class="d-flex justify-content-between">
-              <h5>{{ formlabel }}</h5>
-              <div class="btn-group">
-                <button
-                  type="button"
-                  class="btn btn-sm btn-warning waves-effect waves-light"
-                  v-tooltip.top="'Cancel'"
-                  @click="resetData"
-                >
-                  <i class="mdi mdi-cancel"></i>
-                  Cancel
-                </button>
-                <button
-                  v-if="form.id"
-                  type="button"
-                  class="btn btn-sm btn-info waves-effect waves-light"
-                  v-tooltip.top="submitLabel"
-                  @click="updateData"
-                >
-                  <i class="mdi mdi-check-circle"></i>
-                  {{ submitLabel }}
-                </button>
-                <button
-                  v-else
-                  type="button"
-                  class="btn btn-sm btn-success waves-effect waves-light"
-                  v-tooltip.top="submitLabel"
-                  @click="saveData"
-                >
-                  <i class="mdi mdi-check-circle"></i>
-                  {{ submitLabel }}
-                </button>
-              </div>
+          <div class="card-header d-flex justify-content-between">
+            <h5>{{ formlabel }}</h5>
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-sm btn-warning waves-effect waves-light"
+                v-tooltip.top="'Cancel'"
+                @click="resetData"
+              >
+                <i class="fa fa-cancel"></i>
+                Cancel
+              </button>
+              <button
+                v-if="form.id"
+                type="button"
+                class="btn btn-sm btn-info waves-effect waves-light"
+                v-tooltip.top="submitLabel"
+                @click="updateData"
+              >
+                <i class="fa fa-check-circle"></i>
+                {{ submitLabel }}
+              </button>
+              <button
+                v-else
+                type="button"
+                class="btn btn-sm btn-success waves-effect waves-light"
+                v-tooltip.top="submitLabel"
+                @click="saveData"
+              >
+                <i class="fa fa-check-circle"></i>
+                {{ submitLabel }}
+              </button>
             </div>
           </div>
           <div class="card-body">
@@ -96,35 +78,31 @@
         </div>
         <!-- table data -->
         <div class="card" v-else>
-          <div class="card-header">
-            <div class="d-flex justify-content-between">
-              <span
-                :class="keyword ? 'p-input-icon-right' : 'p-input-icon-left'"
-              >
-                <i
-                  class="pi pi-times"
-                  v-if="keyword"
-                  style="cursor: pointer"
-                  @click="resetData"
-                />
-                <i class="pi pi-search" v-else />
-                <p-input-text
-                  type="text"
-                  class="p-inputtext-sm m-0"
-                  placeholder="Search"
-                  v-model="keyword"
-                  @input="filter"
-                />
-              </span>
-              <button
-                type="button"
-                class="btn btn-sm btn-info waves-effect waves-light"
-                v-tooltip.top="'Create New'"
-                @click="addNewData"
-              >
-                <i class="mdi mdi-plus-circle-outline"></i> New Data
-              </button>
-            </div>
+          <div class="card-header d-flex justify-content-between">
+            <span :class="keyword ? 'p-input-icon-right' : 'p-input-icon-left'">
+              <i
+                class="pi pi-times"
+                v-if="keyword"
+                style="cursor: pointer"
+                @click="resetData"
+              />
+              <i class="pi pi-search" v-else />
+              <p-input-text
+                type="text"
+                class="p-inputtext-sm m-0"
+                placeholder="Search"
+                v-model="keyword"
+                @input="filter"
+              />
+            </span>
+            <button
+              type="button"
+              class="btn btn-sm btn-info waves-effect waves-light"
+              v-tooltip.top="'Create New'"
+              @click="addNewData"
+            >
+              <i class="fa fa-plus"></i> New Data
+            </button>
           </div>
           <template v-if="data != null">
             <div class="card-body" v-if="data.total > 0">
@@ -151,7 +129,7 @@
                             @click="editData(item)"
                             v-tooltip.top="'Edit'"
                           >
-                            <i class="mdi mdi-pencil"></i>
+                            <i class="fa fa-pencil"></i>
                           </button>
                           <button
                             type="button"
@@ -162,7 +140,7 @@
                             @click="deleteData($event, item.id)"
                             v-tooltip.top="'Delete'"
                           >
-                            <i class="mdi mdi-trash-can-outline"></i>
+                            <i class="fa fa-trash"></i>
                           </button>
                         </div>
                       </td>
@@ -226,14 +204,7 @@ export default {
   beforeMount() {
     this.loadPage(this.page, this.perPage, this.keyword);
   },
-  mounted() {
-    this.$toast.add({
-      severity: "success",
-      summary: "Success Message",
-      detail: "Order submitted",
-      life: 3000,
-    });
-  },
+
   methods: {
     async loadPage(page, perPage) {
       await axios

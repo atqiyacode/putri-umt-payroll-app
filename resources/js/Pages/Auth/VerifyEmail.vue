@@ -1,9 +1,7 @@
 <script setup>
 import { computed } from "vue";
-import Button from "@/Components/Button.vue";
 import GuestLayout from "@/Layouts/Guest.vue";
 import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
-import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 
 const props = defineProps({
   status: String,
@@ -24,55 +22,43 @@ const verificationLinkSent = computed(
 <template>
   <GuestLayout>
     <Head title="Email Verification" />
-    <div class="authincation-content">
-      <div class="row no-gutters">
-        <div class="col-xl-12">
-          <div class="auth-form">
-            <div class="text-center mb-3">
-              <Link :href="route('dashboard')">
-                <ApplicationLogo />
-              </Link>
-            </div>
-            <h4 class="text-center mb-4">Thanks for register!</h4>
-            <div
-              class="mb-4 font-medium text-sm text-green-600"
-              v-if="verificationLinkSent"
-            >
-              A new verification link has been sent to the email address you
-              provided during registration (<span class="fw-bold">
-                {{ email }} </span
-              >).
-            </div>
+    <div class="bg-white rounded10 shadow-lg">
+      <div class="content-top-agile p-20 pb-0">
+        <h2 class="text-primary fw-600">Thanks for register!</h2>
+        <div
+          class="mb-4 font-medium text-sm text-green-600"
+          v-if="verificationLinkSent"
+        >
+          A new verification link has been sent to the email address you
+          provided during registration (<span class="fw-bold">
+            {{ email }} </span
+          >).
+        </div>
 
-            <p class="mt-2" v-else>
-              A email has been send to
-              <span class="fw-bold"> {{ email }} </span>. Before getting
-              started, could you verify your email address by clicking on the
-              link we just emailed to you? If you didn't receive the email, we
-              will gladly send you another.
-            </p>
-
-            <div class="d-grid mb-2 text-center">
-              <form @submit.prevent="submit">
-                <button
-                  class="btn btn-primary"
-                  type="submit"
-                  :disabled="form.processing"
-                >
-                  <span v-if="form.processing">Processing...</span>
-                  <span v-else>Resend Verification Email</span>
-                </button>
-              </form>
-              <p class="text-muted mt-3">
-                <Link
-                  :href="route('logout')"
-                  method="post"
-                  class="text-primary fw-medium ms-1"
-                  >Back to Home</Link
-                >
-              </p>
-            </div>
-          </div>
+        <p class="mt-2" v-else>
+          A email has been send to
+          <span class="fw-bold"> {{ email }} </span>. Before getting started,
+          could you verify your email address by clicking on the link we just
+          emailed to you? If you didn't receive the email, we will gladly send
+          you another.
+        </p>
+      </div>
+      <div class="p-40">
+        <form @submit.prevent="submit">
+          <button
+            class="btn btn-primary w-p100 mt-10"
+            type="submit"
+            :disabled="form.processing"
+          >
+            <span v-if="form.processing">Processing...</span>
+            <span v-else>Resend Verification Email</span>
+          </button>
+        </form>
+        <div class="text-center">
+          <p class="mt-15 mb-0 text-fade">
+            has verify email address?
+            <Link :href="route('login')" class="text-primary">Sign In</Link>
+          </p>
         </div>
       </div>
     </div>

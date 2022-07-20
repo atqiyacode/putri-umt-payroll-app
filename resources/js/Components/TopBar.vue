@@ -1,56 +1,15 @@
 <template>
-  <div class="navbar-custom">
-    <div class="container-fluid">
-      <ul class="list-unstyled topnav-menu float-end mb-0">
-        <!-- search -->
-        <top-bar-search></top-bar-search>
-
-        <!-- fullscreen -->
-        <top-bar-full-screen></top-bar-full-screen>
-
-        <!-- app -->
-        <top-bar-app></top-bar-app>
-
-        <!-- language -->
-        <top-bar-language></top-bar-language>
-
-        <!-- notification -->
-        <top-bar-notification></top-bar-notification>
-
-        <!-- profile -->
-        <top-bar-profile></top-bar-profile>
-
-        <!-- settings -->
-        <top-bar-setting></top-bar-setting>
-      </ul>
-
-      <logo-box></logo-box>
-
-      <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
-        <li>
-          <button
-            class="button-menu-mobile waves-effect waves-light"
-            @click="setSidebar"
-          >
-            <i class="fe-menu"></i>
-          </button>
-        </li>
-
-        <li>
-          <a
-            class="navbar-toggle nav-link"
-            data-bs-toggle="collapse"
-            data-bs-target="#topnav-menu-content"
-          >
-            <div class="lines">
-              <span></span>
-              <span></span>
-              <span></span>
+  <div class="header">
+    <div class="header-content">
+      <nav class="navbar navbar-expand">
+        <div class="collapse navbar-collapse justify-content-between">
+          <div class="header-left">
+            <div class="headaer-title">
+              <h1 class="font-w600 mb-0">Empty-Page</h1>
             </div>
-          </a>
-        </li>
-      </ul>
-      <div class="clearfix"></div>
+          </div>
+        </div>
+      </nav>
     </div>
   </div>
 </template>

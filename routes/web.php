@@ -22,9 +22,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
     // superadmin route
     // superadmin
-    Route::resource('role', RoleController::class)->middleware(['role:superadmin'])->only(['index', 'create', 'show', 'edit']);
-    Route::resource('permission', PermissionController::class)->middleware(['role:superadmin'])->only(['index', 'create', 'show', 'edit']);
-    Route::resource('user', UserController::class)->middleware(['role:superadmin|admin'])->only(['index', 'create', 'show', 'edit']);
+    Route::resource('role', RoleController::class)->middleware(['role:superadmin'])->only(['index']);
+    Route::resource('permission', PermissionController::class)->middleware(['role:superadmin'])->only(['index']);
+    Route::resource('user', UserController::class)->middleware(['role:superadmin|admin'])->only(['index']);
 
 
     // api
